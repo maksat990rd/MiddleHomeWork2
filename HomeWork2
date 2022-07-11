@@ -1,0 +1,184 @@
+
+CREATE TABLE drivers
+(
+    id   SERIAL PRIMARY KEY,
+    name VARCHAR(50)
+);
+
+CREATE TABLE mans
+(
+    id          INTEGER PRIMARY KEY,
+    name_driver VARCHAR(20),
+    id_drivers  INT REFERENCES drivers (id)
+);
+
+INSERT INTO drivers(name)
+VALUES ('mers'),
+       ('volvo'),
+       ('toyota');
+INSERT INTO mans(id, name_driver, id_drivers)
+VALUES (1, 'azamat', 1),
+       (2, 'Aziza', 2),
+       (3, 'Ayzada', 3);
+
+CREATE TABLE groups
+(
+    id  SERIAL PRIMARY KEY,
+    inn INTEGER NOT NULL
+);
+
+CREATE TABLE group1
+(
+    count      INTEGER,
+    name_group VARCHAR(50),
+    id_group   INTEGER REFERENCES groups (id)
+);
+
+INSERT INTO groups(inn)
+VALUES (123),
+       (124),
+       (125);
+INSERT INTO group1(count, name_group, id_group)
+VALUES (12, 'Geografiya', 1),
+       (21, 'Biologiya', 2),
+       (15, 'Algebra', 3);
+
+CREATE TABLE cow
+(
+    id       SERIAL PRIMARY KEY,
+    name_cow VARCHAR(50)
+);
+
+
+CREATE TABLE son_cow
+(
+    year   INTEGER,
+    name   VARCHAR(30),
+    id_cow INTEGER REFERENCES cow (id)
+);
+
+INSERT INTO cow(name_cow)
+VALUES ('Burenka');
+INSERT INTO son_cow(year, name, id_cow)
+VALUES (12, 'mumu', 1);
+
+CREATE TABLE playner
+(
+    id   SERIAL PRIMARY KEY,
+    name VARCHAR
+);
+
+CREATE TABLE vertolet
+(
+    inn   INTEGER,
+    model VARCHAR(50)
+);
+INSERT INTO playner(name)
+VALUES ('VSO');
+INSERT INTO vertolet(inn, model)
+VALUES (123, 'SvDF234');
+
+CREATE TABLE horse
+(
+    id     INTEGER PRIMARY KEY,
+    name   VARCHAR,
+    gender VARCHAR
+);
+
+CREATE TABLE son_horse
+(
+    name   VARCHAR(50),
+    year   INTEGER,
+    id_son INTEGER REFERENCES horse (id)
+);
+
+INSERT INTO horse(id, name, gender)
+VALUES (1, 'Mustang', 'woman');
+INSERT INTO son_horse(name, year, id_son)
+VALUES ('igogo', 12, 1);
+
+CREATE TABLE fish
+(
+    id   SERIAL PRIMARY KEY,
+    name VARCHAR(40)
+);
+
+CREATE TABLE nemo
+(
+    year    INT,
+    name    VARCHAR(50),
+    id_fish INTEGER REFERENCES fish (id)
+);
+
+INSERT INTO fish(name)
+VALUES ('Marlen');
+INSERT INTO nemo(year, name, id_fish)
+VALUES (5, 'Nemo', 1);
+
+CREATE TABLE gimnast
+(
+    id   SERIAL PRIMARY KEY,
+    name VARCHAR(40)
+);
+
+CREATE TABLE sin_gimnasta
+(
+    id         INTEGER,
+    name       VARCHAR(40),
+    id_gimnast INTEGER REFERENCES gimnast (id)
+);
+
+
+INSERT INTO gimnast(name)
+VALUES ('Albertinio'),
+       ('Julien');
+INSERT INTO sin_gimnasta(id, name, id_gimnast)
+VALUES (123, 'Marsel', 1),
+       (312, 'Daniel', 2);
+
+CREATE TABLE peaksoft
+(
+    id   SERIAL PRIMARY KEY,
+    name VARCHAR(40),
+    year INTEGER
+);
+
+CREATE TABLE mentor
+(
+    id          SERIAL UNIQUE,
+    name        VARCHAR(50),
+    opit_raboti VARCHAR(30) NOT NULL,
+    id_peak     INTEGER REFERENCES peaksoft (id)
+);
+
+CREATE TABLE mentor2
+(
+    id        SERIAL PRIMARY KEY,
+    name_stud VARCHAR(50),
+    year      INTEGER,
+    id_sviaz  INTEGER REFERENCES peaksoft (id)
+);
+
+CREATE TABLE student
+(
+    name_stud VARCHAR(40) NOT NULL,
+    year      VARCHAR(40),
+    id_sviaz  INTEGER REFERENCES mentor (id)
+);
+
+CREATE TABLE student2
+(
+    name_stud VARCHAR(45),
+    year      VARCHAR(45),
+    id_sviaz  INTEGER REFERENCES mentor2 (id)
+);
+
+INSERT INTO peaksoft(name, year) VALUES ('PeakSoft', 40), ('MegaCom', 120);
+INSERT INTO mentor(name, opit_raboti, id_peak) VALUES ('Ayzhamal', 'Senior', 1),
+                                                      ('Nurisa', 'Middle',2);
+INSERT INTO mentor2(name_stud, year, id_sviaz) VALUES ('Beksultan', 28, 1),
+                                                      ('Ayzhamal', 34, 2);
+INSERT INTO student(name_stud, year, id_sviaz) VALUES ('Aziza', 32, 1),
+                                                      ('Klara', 34, 2);
+INSERT INTO student2(name_stud, year, id_sviaz) VALUES ('Nursultan', '04.08.2002', 3),
+                                                       ('Ayzada', '25.08.1989', 4);
